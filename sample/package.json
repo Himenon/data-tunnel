@@ -1,0 +1,8 @@
+{
+  "name": "pp-sample",
+  "version": "1.0.0",
+  "description": "Sapmle of pp",
+  "main": "index.js",
+  "author": "K.Himenon",
+  "license": "MIT"
+}
