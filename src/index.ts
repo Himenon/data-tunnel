@@ -1,10 +1,7 @@
-export const probe = (...args: any[]): void => {
-    console.log(args);
-}
+import { setupUI } from "./ui";
+import { straw } from "./straw";
 
-export class PumpProbe {
-    constructor(private key: string) {}
-    public pump(data: any) {
-        console.log(data, this.key);
-    }
+export {
+    setupUI,
+    straw,
 }

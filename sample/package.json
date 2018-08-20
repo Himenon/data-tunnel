@@ -4,5 +4,15 @@
   "description": "Sapmle of pp",
   "main": "index.js",
   "author": "K.Himenon",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "npx http-server ."
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "hyperapp": "^1.2.8"
+  }
 }
