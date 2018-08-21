@@ -1,11 +1,11 @@
 import { h, app, View } from 'hyperapp'
-import { straw } from './straw'
+import { straw, Updater, Payload } from './straw'
 
 export interface DataStraw {
     count: number
     title: string
-    url: string
-    download: string
+    url?: string
+    download?: string
 }
 
 export interface State {
@@ -15,6 +15,7 @@ export interface State {
 export interface Actions {
     refresh: () => void
     onDownload: (key: string) => void
+    updater: Updater<any>
 }
 
 const state: State = {
@@ -23,6 +24,7 @@ const state: State = {
 
 const actions: Actions = {
     refresh: () => (state: State, actions: Actions) => {
+        console.log(state)
         Object.keys(state.items).map(key => actions.onDownload(key))
     },
     onDownload: (key: string) => (state: State) => {
@@ -31,27 +33,39 @@ const actions: Actions = {
         state.items[key].url = URL.createObjectURL(file)
         state.items[key].download = `${key}.json`
     },
+    updater: (payload: Payload<any>) => (state: State) => {
+        state.items[payload.key] = {
+            title: payload.key,
+            count: payload.data.length,
+        }
+        return {
+            items: state.items,
+        }
+    },
 }
 
-const view: View<State, Actions> = (state: State, actions: Actions) => {
-    const items = state.items
+const view: View<State, Actions> = (propState, propActions) => {
+    const items = propState.items
     return (
         <div>
             <h1>Probe List</h1>
-            <button onclick={actions.refresh}>Refresh</button>
+            <button onclick={propActions.refresh}>Refresh</button>
             <ul>
                 {Object.keys(items).map(key => {
-                    <li>
-                        <a href={items[key].url} download={items[key].download}>
-                            ({items[key].count}) {items[key].title}
-                        </a>
-                    </li>
+                    return (
+                        <li>
+                            <a href={items[key].url} download={items[key].download}>
+                                ({items[key].count}) {items[key].title}
+                            </a>
+                        </li>
+                    )
                 })}
             </ul>
         </div>
     )
 }
 
-export const setupUI =() => {
-    app(state, actions, view, document.body)
+export const setupUI = () => {
+    const main = app(state, actions, view, document.body)
+    straw.addUpdateNotifyListener(main.updater)
 }

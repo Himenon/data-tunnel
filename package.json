@@ -5,10 +5,11 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "start": "npm run build:watch",
     "test": "jest -c ./jest.config.json",
     "build": "tsc -p ./tsconfig.json",
     "build:watch": "npm run clean && npm run build -- --watch",
-    "prettier": "prettier --config .prettierrc --write src/*.{ts,tsx}",
+    "format": "prettier --config .prettierrc --write src/*.{ts,tsx}",
     "clean": "rimraf ./lib",
     "version_up:major": "changelog -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version major",
     "version_up:minor": "changelog -m && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version minor",

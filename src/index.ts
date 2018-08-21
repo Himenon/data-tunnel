@@ -1,7 +1,4 @@
-import { setupUI } from "./ui";
-import { straw } from "./straw";
+import { setupUI } from './ui'
+import { straw } from './straw'
 
-export {
-    setupUI,
-    straw,
-}
+export { setupUI, straw }

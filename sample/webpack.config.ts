@@ -30,10 +30,15 @@ const modules: webpack.Configuration[] = [
             pathinfo: true,
         },
         module: {
-            rules: [],
+            rules: [
+                {
+                    test: /\.(ts|tsx)$/,
+                    use: 'ts-loader'
+                }
+            ],
         },
         plugins,
-        resolve: {}
+        resolve: {},
     },
 ];
 
