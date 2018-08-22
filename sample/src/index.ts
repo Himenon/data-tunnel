@@ -4,10 +4,15 @@ window.onload = () => {
     pp.setupUI();
 }
 
+const dummyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam esse reprehenderit perspiciatis odio? Minima quaerat ut nostrum provident minus eum vel dolores. Enim impedit repudiandae incidunt at! Et, obcaecati sunt?";
+
 const awesomeMethod = (data1: string, data2: number) => {
     const data = {data1 , data2};
-    pp.straw.absorb("awesomeMethod", data);
+    pp.straw.absorb("awesomeMethod", data, {
+        describe: dummyText
+    });
 }
+
 
 const awesomeMethod2 = (data1: string, data2: number) => {
     const data = {data1 , data2};

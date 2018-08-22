@@ -4,6 +4,7 @@ import { straw, Updater, Payload } from './straw'
 export interface DataStraw {
     count: number
     title: string
+    describe?: string
     url?: string
     download?: string
 }
@@ -13,8 +14,8 @@ export interface State {
 }
 
 export interface Actions {
-    refresh: () => void
-    onDownload: (key: string) => void
+    // refresh: () => void
+    // onDownload: (key: string) => void
     updater: Updater<any>
 }
 
@@ -22,21 +23,19 @@ const state: State = {
     items: {},
 }
 
+/**
+ * TODO Performance
+ */
 const actions: Actions = {
-    refresh: () => (state: State, actions: Actions) => {
-        console.log(state)
-        Object.keys(state.items).map(key => actions.onDownload(key))
-    },
-    onDownload: (key: string) => (state: State) => {
-        const data = straw.getDownloadData(key)
-        const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
-        state.items[key].url = URL.createObjectURL(file)
-        state.items[key].download = `${key}.json`
-    },
     updater: (payload: Payload<any>) => (state: State) => {
+        const data = straw.getDownloadData(payload.key)
+        const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
         state.items[payload.key] = {
             title: payload.key,
             count: payload.data.length,
+            describe: payload.option && payload.option.describe,
+            url: URL.createObjectURL(file),
+            download: `${payload.key}.json`
         }
         return {
             items: state.items,
@@ -44,23 +43,24 @@ const actions: Actions = {
     },
 }
 
-const view: View<State, Actions> = (propState, propActions) => {
+const view: View<State, Actions> = (propState) => {
     const items = propState.items
     return (
-        <div>
-            <h1>Probe List</h1>
-            <button onclick={propActions.refresh}>Refresh</button>
-            <ul>
+        <div class="container">
+            <h1><small>Probe List</small></h1>
+            <div class="list-group">
                 {Object.keys(items).map(key => {
                     return (
-                        <li>
-                            <a href={items[key].url} download={items[key].download}>
-                                ({items[key].count}) {items[key].title}
-                            </a>
-                        </li>
+                        <a href={items[key].url} download={items[key].download} class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{items[key].title}</h5>
+                                <small><span class="badge badge-pill badge-success">{items[key].count}</span></small>
+                            </div>
+                            <p class="mb-1">{items[key].describe}</p>
+                        </a>
                     )
                 })}
-            </ul>
+            </div>
         </div>
     )
 }

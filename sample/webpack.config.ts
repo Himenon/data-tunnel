@@ -3,16 +3,16 @@ import * as webpack from "webpack";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
 
-// @ts-ignore
 const plugins: webpack.Plugin[] = [
     new TsconfigPathsPlugin({
         configFile: "./tsconfig.json",
         context: __dirname
-    }),
+    }) as any,
     new HtmlWebpackPlugin({
         chunks: ["index"],
         template: "src/index.html",
         filename: "index.html",
+        title: "Pump Probe"
     }),
 ]
 
@@ -34,6 +34,10 @@ const modules: webpack.Configuration[] = [
                 {
                     test: /\.(ts|tsx)$/,
                     use: 'ts-loader'
+                },
+                {
+                    test: /\.html$/,
+                    loader: "html-loader"
                 }
             ],
         },

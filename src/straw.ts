@@ -2,27 +2,33 @@ export interface Cache<T> {
     [key: string]: T[]
 }
 
-export type Payload<T> = { key: string; data: T[] }
+export interface Option {
+    describe?: string
+}
+
+export type Payload<T> = { key: string; data: T[], option?: Option }
 export type Updater<T> = (payload: Payload<T>) => void
 
 class Straw {
     public PREFIX = 'DATA_STRAW'
-    private cache: Cache<any> = {}
+    private dataSet: { cache: Cache<any>, option?: Option } = { cache: {} }
     private notifyTarget: Updater<any>[] = []
 
-    public absorb<T>(key: string, data: T) {
-        if (key in this.cache) {
-            this.cache[key].push(JSON.stringify(data))
+    public absorb<T>(key: string, data: T, option?: Option) {
+        if (key in this.dataSet.cache) {
+            this.dataSet.cache[key].push(JSON.stringify(data))
+            this.dataSet.option = option;
             this.update(key)
         } else {
-            this.cache[key] = [JSON.stringify(data)]
+            this.dataSet.cache[key] = [JSON.stringify(data)]
+            this.dataSet.option = option;
             this.update(key)
         }
     }
 
     public getDownloadData<T>(key: string): { [key: string]: T } {
         const jsonData = {}
-        this.cache[key].forEach((data: string, idx: number) => {
+        this.dataSet.cache[key].forEach((data: string, idx: number) => {
             Object.assign(jsonData, { [idx]: JSON.parse(data) })
         })
         return jsonData
@@ -33,8 +39,9 @@ class Straw {
     }
 
     private update(key: string) {
-        const data = this.cache[key]
-        this.notifyTarget.forEach(target => target({ key, data }))
+        const data = this.dataSet.cache[key]
+        const option = this.dataSet.option;
+        this.notifyTarget.forEach(target => target({ key, data, option }))
     }
 }
 
