@@ -1,49 +1,37 @@
 import { h, app, View } from 'hyperapp'
-import { straw, Updater, Payload } from './straw'
+import { straw } from '../straw'
+import * as Types from "./types";
+import * as service from "../service";
 
-export interface DataStraw {
-    count: number
-    title: string
-    describe?: string
-    url?: string
-    download?: string
-}
 
-export interface State {
-    items: { [key: string]: DataStraw }
-}
+service.ping();
 
-export interface Actions {
-    // refresh: () => void
-    // onDownload: (key: string) => void
-    updater: Updater<any>
-}
-
-const state: State = {
+const state: Types.State = {
     items: {},
 }
 
 /**
  * TODO Performance
  */
-const actions: Actions = {
-    updater: (payload: Payload<any>) => (state: State) => {
+const actions: Types.Actions = {
+    updater: (payload: Types.Payload) => (state: Types.State) => {
         const data = straw.getDownloadData(payload.key)
         const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
-        state.items[payload.key] = {
+        const strawData: Types.DataStraw = {
             title: payload.key,
             count: payload.data.length,
             describe: payload.option && payload.option.describe,
             url: URL.createObjectURL(file),
             download: `${payload.key}.json`
         }
+        state.items[payload.key] = strawData;
         return {
             items: state.items,
         }
     },
 }
 
-const view: View<State, Actions> = (propState) => {
+const view: View<Types.State, Types.Actions> = (propState) => {
     const items = propState.items
     return (
         <div class="container">

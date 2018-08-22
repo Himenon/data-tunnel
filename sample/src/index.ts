@@ -1,7 +1,9 @@
 import * as pp from "pump-probe";
 
 window.onload = () => {
-    pp.setupUI();
+    pp.setup({
+        ui: true
+    });
 }
 
 const dummyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam esse reprehenderit perspiciatis odio? Minima quaerat ut nostrum provident minus eum vel dolores. Enim impedit repudiandae incidunt at! Et, obcaecati sunt?";

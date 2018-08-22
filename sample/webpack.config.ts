@@ -43,6 +43,13 @@ const modules: webpack.Configuration[] = [
         },
         plugins,
         resolve: {},
+        node: {
+            fs: 'empty',
+            net: 'empty',
+        },
+        externals: {
+            uws: 'uws'
+        }
     },
 ];
 

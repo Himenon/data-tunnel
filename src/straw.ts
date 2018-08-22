@@ -1,20 +1,11 @@
-export interface Cache<T> {
-    [key: string]: T[]
-}
-
-export interface Option {
-    describe?: string
-}
-
-export type Payload<T> = { key: string; data: T[], option?: Option }
-export type Updater<T> = (payload: Payload<T>) => void
+import * as Types from "./types";
 
 class Straw {
     public PREFIX = 'DATA_STRAW'
-    private dataSet: { cache: Cache<any>, option?: Option } = { cache: {} }
-    private notifyTarget: Updater<any>[] = []
+    private dataSet: { cache: Types.Cache<any>, option?: Types.Option } = { cache: {} }
+    private notifyTarget: Types.Updater<any>[] = []
 
-    public absorb<T>(key: string, data: T, option?: Option) {
+    public absorb<T>(key: string, data: T, option?: Types.Option) {
         if (key in this.dataSet.cache) {
             this.dataSet.cache[key].push(JSON.stringify(data))
             this.dataSet.option = option;
@@ -34,7 +25,7 @@ class Straw {
         return jsonData
     }
 
-    public addUpdateNotifyListener<T>(target: Updater<T>) {
+    public addUpdateNotifyListener<T>(target: Types.Updater<T>) {
         this.notifyTarget.push(target)
     }
 
