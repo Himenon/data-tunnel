@@ -40,6 +40,7 @@ const modules: webpack.Configuration[] = [
                     loader: "html-loader"
                 }
             ],
+            noParse: /ws/
         },
         plugins,
         resolve: {},
@@ -48,7 +49,8 @@ const modules: webpack.Configuration[] = [
             net: 'empty',
         },
         externals: {
-            uws: 'uws'
+            uws: 'uws',
+            ws: 'ws'
         }
     },
 ];

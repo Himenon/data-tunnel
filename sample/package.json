@@ -29,7 +29,6 @@
     "webpack-serve": "^2.0.2"
   },
   "dependencies": {
-    "express": "^4.16.3",
     "hyperapp": "^1.2.8",
     "pump-probe": "file:../"
   },

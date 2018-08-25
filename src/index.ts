@@ -1,6 +1,5 @@
 import { setupUI } from './ui'
 import { straw } from './straw'
-import * as server from './server';
 
 export interface Configuration {
     ui?: boolean;
@@ -16,4 +15,4 @@ const setup = (configure: Configuration) => {
     }
 }
 
-export { setup, straw, server }
+export { setup, straw }
