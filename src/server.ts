@@ -1,39 +1,23 @@
-import * as express from 'express';
-import * as socket from "socket.io";
-import * as http from "http";
 import * as cors from "cors";
 
-const app = express();
-app.use(cors({ origin: "*" }));
-app.listen(3001)
+const app = require('express')()
+const http = require('http').Server(app)
+const sio = require('socket.io')(http)
 
-const server = new http.Server(app)
-const io = socket(server, {
-    origins: "*:*"
+
+app.use(cors({ origin: "*" }));
+
+// @ts-ignore
+app.get('/', function(req, res) {
+    //   res.sendFile(__dirname + '/index.html');
+    res.send('<h1>Hello world</h1>')
 })
 
-io.origins('*:*')
-
 // @ts-ignore
-app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', "false");
-    next();
-});
+sio.on('connection', function(socket) {
+    console.log('a user connected')
+})
 
-// @ts-ignore
-app.get('/' , (req: express.Request, res: express.Response) => {
-   res.send('hello world');
-});
-
-// const server = app.listen(3001);
-
-// const io = socket(server);
-io.on('connection', (socket) => {
-    socket.on('SEND_MESSAGE', (data) => {
-        console.log(data, "きたよー");
-        io.emit('RECEIVE_MESSAGE', data);
-    })
+http.listen(3000, function() {
+    console.log('listening on *:3000')
 })

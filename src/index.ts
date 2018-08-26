@@ -2,16 +2,16 @@ import { setupUI } from './ui'
 import { straw } from './straw'
 
 export interface Configuration {
-    ui?: boolean;
-    server?: boolean;
+    ui?: boolean
+    server?: boolean
 }
 
 const setup = (configure: Configuration) => {
     if (configure.ui) {
-        setupUI();
+        setupUI()
     }
     if (configure.server) {
-        console.log("Connect TO Server");
+        console.log('Connect TO Server')
     }
 }
 
