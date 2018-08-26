@@ -1,4 +1,5 @@
 import * as Types from './types'
+import { config } from './config'
 
 class Straw {
     public PREFIX = 'DATA_STRAW'
@@ -6,6 +7,9 @@ class Straw {
     private notifyTarget: Types.Updater<any>[] = []
 
     public absorb<T>(key: string, data: T, option?: Types.Option) {
+        if (config.receiver) {
+            return;
+        }
         if (key in this.dataSet.cache) {
             this.dataSet.cache[key].push(JSON.stringify(data))
             this.dataSet.option = option
@@ -19,9 +23,11 @@ class Straw {
 
     public getDownloadData<T>(key: string): { [key: string]: T } {
         const jsonData = {}
-        this.dataSet.cache[key].forEach((data: string, idx: number) => {
-            Object.assign(jsonData, { [idx]: JSON.parse(data) })
-        })
+        if (key in this.dataSet.cache) {
+            this.dataSet.cache[key].forEach((data: string, idx: number) => {
+                Object.assign(jsonData, { [idx]: JSON.parse(data) })
+            })
+        }
         return jsonData
     }
 

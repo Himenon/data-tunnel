@@ -1,10 +1,7 @@
 import { h, app, View } from 'hyperapp'
 import { straw } from '../straw'
 import * as Types from "./types";
-// import * as service from "../service";
-
-
-// service.ping();
+import { config } from "../config";
 
 const state: Types.State = {
     items: {},
@@ -53,7 +50,10 @@ const view: View<Types.State, Types.Actions> = (propState) => {
     )
 }
 
-export const setupUI = () => {
+export const setup = () => {
+    if (!config.sender) {
+        return;
+    }
     const main = app(state, actions, view, document.body)
     straw.addUpdateNotifyListener(main.updater)
 }

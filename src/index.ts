@@ -1,24 +1,13 @@
-import { setupUI } from './ui'
+import * as ui from './ui'
 import { straw } from './straw'
 import * as service from './service'
-
-export interface Configuration {
-    ui?: boolean
-    server?: boolean
-    client?: boolean
-}
+import { config, Configuration } from './config'
 
 const setup = (configure: Configuration) => {
-    if (configure.ui) {
-        setupUI()
-    }
-    if (configure.server) {
-        console.log('Connect TO Server')
-    }
-    if (configure.client) {
-        console.log('Client Ping')
-        service.ping()
-    }
+    config.receiver = configure.receiver
+    config.sender = configure.sender
+    ui.setup()
+    service.setup()
 }
 
-export { setup, straw }
+export { setup, straw, service }

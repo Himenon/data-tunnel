@@ -1,23 +1,33 @@
-import * as cors from "cors";
-
+import * as cors from 'cors'
 const app = require('express')()
 const http = require('http').Server(app)
-const sio = require('socket.io')(http)
+import * as socketIo from 'socket.io'
+import * as constants from './constants'
 
+const io = socketIo(http)
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: '*' }))
 
-// @ts-ignore
-app.get('/', function(req, res) {
-    //   res.sendFile(__dirname + '/index.html');
-    res.send('<h1>Hello world</h1>')
+interface DataFormat {
+    [key: string]: any
+}
+
+io.on('connection', function(socket: socketIo.Socket) {
+    console.log('server:connected')
+
+    socket.on('test', (msg: any) => {
+        console.info('server:test', msg)
+    })
+
+    socket.on('disconnect', () => {
+        console.info('server::disconnect')
+    })
+
+    socket.on(constants.DATA_SEND_CHANNEL, (data: DataFormat) => {
+        io.emit(constants.DATA_RELAY_CHANNEL, data)
+    })
 })
 
-// @ts-ignore
-sio.on('connection', function(socket) {
-    console.log('a user connected')
-})
-
-http.listen(3000, function() {
-    console.log('listening on *:3000')
+http.listen(constants.SERVER_SETTING.port, function() {
+    console.info(`listening on ${constants.SERVER_ADDRESS}`)
 })
