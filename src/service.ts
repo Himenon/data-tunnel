@@ -1,18 +1,10 @@
 import * as constants from './constants'
 import * as io from 'socket.io-client'
+import * as types from './types'
 import { config } from './config'
 
-interface RelayData {
-    key: string,
-    value: any[]
-}
-
-interface ReceiveEventListener {
-    [key: string]: Function[]
-}
-
 let socket: SocketIOClient.Socket | null = null
-let receiveEvent: ReceiveEventListener = {}
+let receiveEvent: types.ReceiveEventListener = {}
 
 export const setup = () => {
     socket = io.connect(constants.SERVER_ADDRESS)
@@ -26,7 +18,7 @@ export const setup = () => {
     })
 
     if (socket && config.receiver && !config.sender) {
-        socket.on(constants.DATA_RELAY_CHANNEL, (data: RelayData) => {
+        socket.on(constants.DATA_RELAY_CHANNEL, (data: types.RelayData) => {
             if (data.key in receiveEvent) {
                 receiveEvent[data.key].forEach(fn => {
                     fn(...data.value)
@@ -41,7 +33,7 @@ export const emit = (key: string, value: any) => {
         return
     }
     if (socket) {
-        const sendData: RelayData = { key, value }
+        const sendData: types.RelayData = { key, value }
         socket.emit(constants.DATA_SEND_CHANNEL, sendData)
     }
 }

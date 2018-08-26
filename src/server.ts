@@ -1,16 +1,15 @@
 import * as cors from 'cors'
-const app = require('express')()
-const http = require('http').Server(app)
+import * as express from 'express'
+import * as http from 'http'
 import * as socketIo from 'socket.io'
 import * as constants from './constants'
+import * as types from './types'
 
-const io = socketIo(http)
+const app = express()
+const server = new http.Server(app)
+const io = socketIo(server)
 
 app.use(cors({ origin: '*' }))
-
-interface DataFormat {
-    [key: string]: any
-}
 
 io.on('connection', function(socket: socketIo.Socket) {
     console.log('server:connected')
@@ -23,11 +22,11 @@ io.on('connection', function(socket: socketIo.Socket) {
         console.info('server::disconnect')
     })
 
-    socket.on(constants.DATA_SEND_CHANNEL, (data: DataFormat) => {
+    socket.on(constants.DATA_SEND_CHANNEL, (data: types.RelayData) => {
         io.emit(constants.DATA_RELAY_CHANNEL, data)
     })
 })
 
-http.listen(constants.SERVER_SETTING.port, function() {
+server.listen(constants.SERVER_SETTING.port, function() {
     console.info(`listening on ${constants.SERVER_ADDRESS}`)
 })
