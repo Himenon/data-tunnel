@@ -1,9 +1,15 @@
 import * as pp from "pump-probe";
+// import * as io from 'socket.io-client';
 
 window.onload = () => {
     pp.setup({
-        ui: true
+        client: true
     });
+
+    // const socket = io('http://localhost:3000')
+    // socket.on('connect', () => {
+    //     alert('successs');
+    // })
 }
 
 const dummyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam esse reprehenderit perspiciatis odio? Minima quaerat ut nostrum provident minus eum vel dolores. Enim impedit repudiandae incidunt at! Et, obcaecati sunt?";

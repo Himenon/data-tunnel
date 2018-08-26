@@ -4,9 +4,9 @@
       "tabSize": 4
     },
     "compilerOptions": {
-      "target": "es5",
+      "target": "es2018",
       "module": "commonjs",
-      "lib": ["es6", "dom", "es2018"],
+      "lib": ["dom", "es2018"],
       "allowJs": false,
       "checkJs": false,
       "jsx": "react",

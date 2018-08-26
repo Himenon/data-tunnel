@@ -40,18 +40,18 @@ const modules: webpack.Configuration[] = [
                     loader: "html-loader"
                 }
             ],
-            noParse: /ws/
+            // noParse: /ws/
         },
         plugins,
         resolve: {},
-        node: {
-            fs: 'empty',
-            net: 'empty',
-        },
-        externals: {
-            uws: 'uws',
-            ws: 'ws'
-        }
+        // node: {
+        //     fs: 'empty',
+        //     net: 'empty',
+        // },
+        // externals: {
+        //     uws: 'uws',
+        //     ws: 'ws'
+        // }
     },
 ];
 

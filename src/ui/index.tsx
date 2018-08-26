@@ -1,10 +1,10 @@
 import { h, app, View } from 'hyperapp'
 import { straw } from '../straw'
 import * as Types from "./types";
-import * as service from "../service";
+// import * as service from "../service";
 
 
-service.ping();
+// service.ping();
 
 const state: Types.State = {
     items: {},
