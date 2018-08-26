@@ -11,19 +11,19 @@ const io = socketIo(server)
 
 app.use(cors({ origin: '*' }))
 
-io.on('connection', function(socket: socketIo.Socket) {
+io.on(constants.CHANNEL.CONNECTION, function(socket: socketIo.Socket) {
     console.log('server:connected')
 
-    socket.on('test', (msg: any) => {
+    socket.on(constants.CHANNEL.TEST, (msg: any) => {
         console.info('server:test', msg)
     })
 
-    socket.on('disconnect', () => {
+    socket.on(constants.CHANNEL.DISCONNECT, () => {
         console.info('server::disconnect')
     })
 
-    socket.on(constants.DATA_SEND_CHANNEL, (data: types.RelayData) => {
-        io.emit(constants.DATA_RELAY_CHANNEL, data)
+    socket.on(constants.CHANNEL.DATA_RELAY, (data: types.RelayData) => {
+        io.emit(constants.CHANNEL.DATA_RELAY, data)
     })
 })
 

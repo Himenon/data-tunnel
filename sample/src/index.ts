@@ -7,6 +7,7 @@ window.onload = () => {
     pp.setup({
         receiver: query && query.receiver === "true",
         sender: query && query.sender === "true",
+        debug: false,
     });
 }
 

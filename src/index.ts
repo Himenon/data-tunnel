@@ -6,6 +6,7 @@ import { config, Configuration } from './config'
 const setup = (configure: Configuration) => {
     config.receiver = configure.receiver
     config.sender = configure.sender
+    config.debug = configure.debug
     ui.setup()
     service.setup()
 }
