@@ -1,7 +1,7 @@
 {
-  "name": "pump-probe",
-  "version": "1.0.0",
-  "description": "Pumping Data & Probe Behavior",
+  "name": "data-tunnel",
+  "version": "0.1.0",
+  "description": "Data Tunnel",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -10,14 +10,15 @@
     "test:watch": "npm run test:jest -- --watch",
     "test:jest": "jest -c ./jest.config.json",
     "server": "node ./lib/server.js",
-    "cruiser": "npx dependency-cruiser --validate .dependency-cruiser.json src",
+    "cruiser": "dependency-cruiser --validate .dependency-cruiser.json src",
     "build": "tsc -p ./tsconfig.json",
     "build:watch": "npm run clean && npm run build -- --watch",
     "format": "prettier --config .prettierrc --write src/*.{ts,tsx}",
     "clean": "rimraf ./lib",
-    "version_up:major": "changelog -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version major",
-    "version_up:minor": "changelog -m && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version minor",
-    "version_up:patch": "changelog -p && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version patch"
+    "ci:local": "circleci local execute",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,7 @@
     "typescript",
     "debug"
   ],
-  "author": "K.Himeno",
+  "author": "Himenon",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Himenon/PumpProbeJs/issues"

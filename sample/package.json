@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "hyperapp": "^1.2.8",
-    "pump-probe": "file:../",
+    "data-tunnel": "file:../",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1"
   },

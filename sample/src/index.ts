@@ -1,4 +1,4 @@
-import * as pp from "pump-probe";
+import * as pp from "data-tunnel";
 import * as url from 'url'
 
 const query = url.parse(location.href, true).query
