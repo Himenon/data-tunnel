@@ -5,14 +5,19 @@ defaults: &defaults
   docker:
     - image: circleci/node:8.9.1
 
+
+dependencies:
+  pre:
+    - echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL" | npm login
+
 jobs:
   test:
     <<: *defaults
     steps:
+      - checkout
       - restore_cache:
           keys:
             - v1-dependencies-
-      - checkout
       - run: yarn install
       - run: yarn run test
       - run: yarn run clean

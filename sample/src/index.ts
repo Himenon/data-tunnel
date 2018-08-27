@@ -1,10 +1,10 @@
-import * as pp from "data-tunnel";
+import * as dt from "data-tunnel";
 import * as url from 'url'
 
 const query = url.parse(location.href, true).query
 
 window.onload = () => {
-    pp.setup({
+    dt.setup({
         receiver: query && query.receiver === "true",
         sender: query && query.sender === "true",
         debug: false,
@@ -15,15 +15,15 @@ const dummyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aper
 
 const awesomeMethod = (data1: string, data2: number) => {
     const data = {data1 , data2};
-    pp.straw.absorb("awesomeMethod", data, {
+    dt.straw.absorb("awesomeMethod", data, {
         describe: dummyText
     });
-    pp.service.emit("hey", [data1, data2])
+    dt.service.emit("hey", [data1, data2])
 }
 
 const awesomeMethod2 = (data1: string, data2: number) => {
     const data = {data1 , data2};
-    pp.straw.absorb("awesomeMethod2", data);
+    dt.straw.absorb("awesomeMethod2", data);
 }
 
 if (query && query.sender === "true") {
@@ -35,4 +35,4 @@ if (query && query.sender === "true") {
     }, 100);
 }
 
-pp.service.receive("hey", awesomeMethod)
+dt.service.receive("hey", awesomeMethod)

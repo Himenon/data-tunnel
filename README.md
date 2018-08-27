@@ -1,9 +1,49 @@
 # Data Tunnel
 
+[![CircleCI](https://circleci.com/gh/Himenon/data-tunnel/tree/master.svg?style=svg)](https://circleci.com/gh/Himenon/data-tunnel/tree/master)
+
+Local Debug Tool
+
 ## Install
 
 ```shell
 $ npm i data-tunnel
+```
+
+## Usage
+
+Publisher
+
+```typescript
+import * as dt from "data-tunnel";
+
+dt.setup({
+    receiver: false,
+    sender: true,
+    debug: false,
+});
+
+const awesomeMethod = (data1: string, data2: number) => {
+    dt.service.emit("my-key", [data1, data2])
+}
+```
+
+Receiver
+
+```typescript
+import * as dt from "data-tunnel";
+
+dt.setup({
+    receiver: true,
+    sender: false,
+    debug: false,
+});
+
+const awesomeMethod = (data1: string, data2: number) => {
+    console.log("Hey", data1, data2)
+}
+
+dt.service.receive("my-key", awesomeMethod)
 ```
 
 ## Development
