@@ -8,6 +8,9 @@ window.onload = () => {
         receiver: query && query.receiver === "true",
         sender: query && query.sender === "true",
         debug: false,
+        port: 3000,
+        hostname: 'localhost',
+        protocol: 'http'
     });
 }
 

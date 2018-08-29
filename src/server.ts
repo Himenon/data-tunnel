@@ -4,6 +4,7 @@ import * as http from 'http'
 import * as socketIo from 'socket.io'
 import * as constants from './constants'
 import * as types from './types'
+import { config } from './config'
 
 const app = express()
 const server = new http.Server(app)
@@ -27,6 +28,6 @@ io.on(constants.CHANNEL.CONNECTION, function(socket: socketIo.Socket) {
     })
 })
 
-server.listen(constants.SERVER_SETTING.port, function() {
-    console.info(`listening on ${constants.SERVER_ADDRESS}`)
+server.listen(config.port, function() {
+    console.info(`listening on ${config.protocol}://${config.debug}:${config.port}`)
 })
