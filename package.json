@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "web2pdf": "./lib/cli.js"
+    "data-tunnel": "./lib/cli.js"
   },
   "scripts": {
     "start": "npm run build:watch",
