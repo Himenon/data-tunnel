@@ -29,5 +29,5 @@ io.on(constants.CHANNEL.CONNECTION, function(socket: socketIo.Socket) {
 })
 
 server.listen(config.port, function() {
-    console.info(`listening on ${config.protocol}://${config.debug}:${config.port}`)
+    console.info(`listening on ${config.protocol}://${config.hostname}:${config.port}`)
 })
