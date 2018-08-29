@@ -8,7 +8,7 @@ const setup = (configure: Configuration) => {
     config.sender = configure.sender
     config.debug = configure.debug
     config.port = configure.port
-    config.hostname = configure.hostname
+    config.host = configure.host
     config.protocol = configure.protocol
     ui.setup()
     service.setup()

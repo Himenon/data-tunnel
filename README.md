@@ -12,7 +12,7 @@ $ npm i data-tunnel
 
 ## Usage
 
-Publisher
+### Publisher
 
 ```typescript
 import * as dt from "data-tunnel";
@@ -21,6 +21,9 @@ dt.setup({
     receiver: false,
     sender: true,
     debug: false,
+    protocol: 'http',
+    host: 'localhost',
+    port: 3600,
 });
 
 const awesomeMethod = (data1: string, data2: number) => {
@@ -28,7 +31,7 @@ const awesomeMethod = (data1: string, data2: number) => {
 }
 ```
 
-Receiver
+### Receiver
 
 ```typescript
 import * as dt from "data-tunnel";
@@ -37,6 +40,9 @@ dt.setup({
     receiver: true,
     sender: false,
     debug: false,
+    protocol: 'http',
+    host: 'localhost',
+    port: 3600,
 });
 
 const awesomeMethod = (data1: string, data2: number) => {
@@ -44,6 +50,18 @@ const awesomeMethod = (data1: string, data2: number) => {
 }
 
 dt.service.receive("my-key", awesomeMethod)
+```
+
+### CLI
+
+```
+$ data-tunnel
+
+$ data-tunnel -p 6501
+
+$ data-tunnel -p 6501 --host 127.0.0.1
+
+$ data-tunnel -p 6501 --debug
 ```
 
 ## Development

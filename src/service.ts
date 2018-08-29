@@ -7,7 +7,7 @@ let socket: SocketIOClient.Socket | null = null
 let receiveEvent: types.ReceiveEventListener = {}
 
 export const setup = () => {
-    socket = io.connect(`${config.protocol}://${config.hostname}:${config.port}`)
+    socket = io.connect(`${config.protocol}://${config.host}:${config.port}`)
 
     socket.on(constants.CHANNEL.CONNECT, () => {
         if (config.debug) {

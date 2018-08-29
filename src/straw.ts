@@ -8,7 +8,7 @@ class Straw {
 
     public absorb<T>(key: string, data: T, option?: Types.Option) {
         if (config.receiver) {
-            return;
+            return
         }
         if (key in this.dataSet.cache) {
             this.dataSet.cache[key].push(JSON.stringify(data))
