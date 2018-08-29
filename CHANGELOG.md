@@ -1,3 +1,9 @@
+#### 0.1.5 (2018-08-29)
+
+##### Bug Fixes
+
+*  bag ([030b0e81](https://github.com/Himenon/PumpProbeJs/commit/030b0e81c620616d96ecbc63dacb69650757c27f))
+
 #### 0.1.4 (2018-08-29)
 
 ##### Bug Fixes
