@@ -10,10 +10,12 @@ export type Payload<T> = { key: string; data: T[]; option?: Option }
 export type Updater<T> = (payload: Payload<T>) => void
 
 export interface RelayData {
-    key: string,
+    key: string
     value: any[]
 }
 
 export interface ReceiveEventListener {
     [key: string]: Function[]
 }
+
+export interface CliOptions {}

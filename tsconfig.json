@@ -40,13 +40,9 @@
     "experimentalDecorators": true,
     "jsxFactory": "h"
   },
-  "files": [
-    "src/index.ts",
-    "src/server.ts"
-  ],
   "include": [
     "src/index.ts",
-    "src/server.ts"
+    "src/cli.ts"
   ],
   "exclude": [
     "node_modules",

@@ -3,7 +3,7 @@ export interface Configuration {
     receiver: boolean
     debug: boolean
     protocol: string
-    hostname: string
+    host: string
     port: number
 }
 
@@ -12,6 +12,6 @@ export const config: Configuration = {
     receiver: false,
     debug: false,
     protocol: 'http',
-    hostname: 'localhost',
-    port: 3600
+    host: 'localhost',
+    port: 3600,
 }
