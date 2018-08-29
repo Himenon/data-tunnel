@@ -47,9 +47,12 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: build
+          command: npm install && npm run build
       - run: 
           name: Publich package
-          command: npm publish
+          command: npm publish ./
 
 workflows:
   version: 2
